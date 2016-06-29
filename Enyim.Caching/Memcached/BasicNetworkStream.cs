@@ -22,6 +22,16 @@ namespace Enyim.Caching.Memcached
 			public BasicNetworkStream(Socket socket)
 			{
 				this.socket = socket;
+				// Set Keep-Alive parameter to 300000 milseconds, as 5 mins.
+				this.SetAlive(300000);
+			}
+			
+		        /// <summary>
+		        /// Set the Keep-Alive param to avoid closed by server side.
+		        /// </summary>
+		        /// <param name="timeTicks">Time</param>
+			public void SetAlive(long timeTicks){
+				this.socket.SetSocketOption(SocketOptionLevel.Tcp, SocketOptionName.KeepAlive, timeTicks);
 			}
 
 			public override bool CanRead
@@ -115,7 +125,7 @@ namespace Enyim.Caching.Memcached
 #region [ License information          ]
 /* ************************************************************
  * 
- *    Copyright (c) 2010 Attila Kiskó, enyim.com
+ *    Copyright (c) 2010 Attila KiskÃ³, enyim.com
  *    
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
