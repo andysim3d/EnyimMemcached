@@ -107,7 +107,50 @@ namespace Enyim.Caching.Configuration
 				this.policyFactory = value;
 			}
 		}
-	}
+
+        private uint _keepAliveInterval = 0;
+        private uint _keepAliveStartFrom = 0;
+
+        public uint KeepAliveInterval
+        {
+            get
+            {
+                if (this._keepAliveInterval == 0)
+                {
+                    this._keepAliveInterval = 30000;
+                }
+                return this._keepAliveInterval;
+            }
+            set
+            {
+                if (value > 720000)
+                {
+                    throw new ArgumentOutOfRangeException("value", "keep-alive interval must under 720000");
+                }
+                this._keepAliveInterval = value;
+            }
+        }
+
+        public uint KeepAliveStartFrom
+        {
+            get
+            {
+                if (_keepAliveStartFrom == 0)
+                {
+                    this._keepAliveStartFrom = 30000;
+                }
+                return this._keepAliveStartFrom;
+            }
+            set
+            {
+                if (value > 7200000)
+                {
+                    throw new ArgumentOutOfRangeException("value", "keep-alive interval must under 7200000");
+                }
+                this._keepAliveStartFrom = value;
+            }
+        }
+    }
 }
 
 #region [ License information          ]
