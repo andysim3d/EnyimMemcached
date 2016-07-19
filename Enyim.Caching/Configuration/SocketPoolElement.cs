@@ -70,7 +70,7 @@ namespace Enyim.Caching.Configuration
         /// Gets or sets a value that specifies the amount of time interval would sent keepalive packet(ms).
         /// </summary>
         [ConfigurationProperty("keepAliveInterval", IsRequired = false, DefaultValue = 300000), IntegerValidator(MinValue = 0)]
-        public uint keepAliveInterval
+        public uint KeepAliveInterval
         {
             get { return (uint)base["keepAliveInterval"]; }
             set { base["keepAliveInterval"] = value; }
@@ -80,7 +80,7 @@ namespace Enyim.Caching.Configuration
         /// Gets or sets a value that specifies the amount of time will client starts sent keepalive packet(ms).
         /// </summary>
         [ConfigurationProperty("keepAliveInterval", IsRequired = false, DefaultValue = 300000), IntegerValidator(MinValue = 0)]
-        public uint keepAliveStartFrom
+        public uint KeepAliveStartFrom
         {
             get { return (uint)base["keepAliveStartFrom"]; }
             set { base["keepAliveStartFrom"] = value; }
@@ -164,27 +164,27 @@ namespace Enyim.Caching.Configuration
 		#endregion
 
 
-        public uint KeepAliveInterval
+        public uint ISocketPoolConfiguration.KeepAliveInterval
         {
             get
             {
-                return this.keepAliveInterval;
+                return this.KeepAliveInterval;
             }
             set
             {
-                this.keepAliveInterval = value;
+                this.KeepAliveInterval = value;
             }
         }
 
-        public uint KeepAliveStartFrom
+        public uint ISocketPoolConfiguration.KeepAliveStartFrom
         {
             get
             {
-                return this.keepAliveStartFrom;
+                return this.KeepAliveStartFrom;
             }
             set
             {
-                this.keepAliveStartFrom = value;
+                this.KeepAliveStartFrom = value;
             }
         }
 

@@ -14,7 +14,9 @@ namespace Enyim.Caching.Configuration
 		private TimeSpan receiveTimeout = new TimeSpan(0, 0, 10);
 		private TimeSpan deadTimeout = new TimeSpan(0, 0, 10);
 		private TimeSpan queueTimeout = new TimeSpan(0, 0, 0, 0, 100);
-		private INodeFailurePolicyFactory policyFactory = new FailImmediatelyPolicyFactory();
+        private INodeFailurePolicyFactory policyFactory = new FailImmediatelyPolicyFactory();
+        private uint keepAliveInterval = 0;
+        private uint keepAliveStartFrom = 0;
 
 		int ISocketPoolConfiguration.MinPoolSize
 		{
@@ -108,18 +110,15 @@ namespace Enyim.Caching.Configuration
 			}
 		}
 
-        private uint _keepAliveInterval = 0;
-        private uint _keepAliveStartFrom = 0;
-
         public uint KeepAliveInterval
         {
             get
             {
-                if (this._keepAliveInterval == 0)
+                if (this.keepAliveInterval == 0)
                 {
-                    this._keepAliveInterval = 30000;
+                    this.keepAliveInterval = 30000;
                 }
-                return this._keepAliveInterval;
+                return this.keepAliveInterval;
             }
             set
             {
@@ -127,7 +126,7 @@ namespace Enyim.Caching.Configuration
                 {
                     throw new ArgumentOutOfRangeException("value", "keep-alive interval must under 720000");
                 }
-                this._keepAliveInterval = value;
+                this.keepAliveInterval = value;
             }
         }
 
@@ -135,11 +134,11 @@ namespace Enyim.Caching.Configuration
         {
             get
             {
-                if (_keepAliveStartFrom == 0)
+                if (keepAliveStartFrom == 0)
                 {
-                    this._keepAliveStartFrom = 30000;
+                    this.keepAliveStartFrom = 30000;
                 }
-                return this._keepAliveStartFrom;
+                return this.keepAliveStartFrom;
             }
             set
             {
@@ -147,7 +146,7 @@ namespace Enyim.Caching.Configuration
                 {
                     throw new ArgumentOutOfRangeException("value", "keep-alive interval must under 7200000");
                 }
-                this._keepAliveStartFrom = value;
+                this.keepAliveStartFrom = value;
             }
         }
     }
